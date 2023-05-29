@@ -1,0 +1,24 @@
+%gui qt
+
+#works start
+
+# test pyramid animation works yayyy
+LEN = 100
+x,y = mgrid[0:LEN:1, 0:LEN:1]
+z = ones((LEN,LEN))
+from time import sleep
+
+mlab.clf()
+mlab.surf(x,y,z)
+change = mlab.surf(x,y,ones((LEN,LEN)))
+
+@mlab.animate(delay=20)
+def anim():
+    for i in range(LEN):
+        z[i:-i, i:-i] = i*1.4
+        change.mlab_source.scalars = z
+        yield
+anim()
+mlab.show()
+
+#works end
